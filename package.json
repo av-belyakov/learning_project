@@ -1,0 +1,27 @@
+{
+  "name": "learning_project",
+  "version": "0.0.1",
+  "description": "Учебное приложение предназначенное для обучения веб-программированию",
+  "main": "index.js",
+  "scripts": {
+    "start": "go run ./main.go",
+    "build": "webpack --config=webpack.config.js --mode=development --progress --stats-error-details",
+    "build-prod": "NODE_ENV=production webpack --config=webpack.config.js --mode=production --progress --stats-error-details",
+    "dev-prod": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/av-belyakov/learning_project.git"
+  },
+  "author": "Lorik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/av-belyakov/learning_project/issues"
+  },
+  "homepage": "https://github.com/av-belyakov/learning_project#readme",
+  "dependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
