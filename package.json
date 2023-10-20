@@ -4,7 +4,8 @@
   "description": "Учебное приложение предназначенное для обучения веб-программированию",
   "main": "index.js",
   "scripts": {
-    "start": "go run ./main.go",
+    "start_for_win": "go run ./main.go -conf=\"C:\\Users\\Админ\\Desktop\\learning_project\\configs\"",
+    "start_for_linux": "go run ./main.go -conf=\"\"",
     "build": "webpack --config=webpack.config.js --mode=development --progress --stats-error-details",
     "build-prod": "NODE_ENV=production webpack --config=webpack.config.js --mode=production --progress --stats-error-details",
     "dev-prod": "webpack --mode production"

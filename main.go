@@ -122,7 +122,5 @@ func main() {
 	mux.Handle("/static", http.NotFoundHandler())
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 
-	fmt.Println(confApp)
-
-	http.ListenAndServe("127.0.0.1:8011", mux)
+	http.ListenAndServe(fmt.Sprintf("%s:%d", confApp.Host, confApp.Port), mux)
 }
