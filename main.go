@@ -110,7 +110,7 @@ func init() {
 
 func main() {
 	appVersion := getAppVersion(appName)
-	log.Printf("Learning application version %s is running", appVersion)
+	log.Printf("Learning application version %s is running host: %s, port: %d", appVersion, confApp.Host, confApp.Port)
 
 	mux := http.NewServeMux()
 	for k, v := range routers {
