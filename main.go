@@ -45,7 +45,7 @@ func getAppName(pf string, nl int) (string, error) {
 func getAppVersion(str string) string {
 	version := "версия не определена"
 	patter := regexp.MustCompile(`v(\d)+\.(\d)+.(\d)+`)
-	ls := patter.FindStringSubmatch(appName)
+	ls := patter.FindStringSubmatch(str)
 
 	if len(ls) > 0 {
 		version = ls[0]
@@ -110,7 +110,7 @@ func init() {
 
 func main() {
 	appVersion := getAppVersion(appName)
-	log.Printf("Learning application version %s is running", appVersion)
+	log.Printf("Learning application, version %s is running", appVersion)
 
 	mux := http.NewServeMux()
 	for k, v := range routers {
