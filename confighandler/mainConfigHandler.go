@@ -1,6 +1,7 @@
 package confighandler
 
 import (
+	"flag"
 	"fmt"
 	"io/fs"
 	"os"
@@ -47,14 +48,17 @@ func NewConfig() (ConfigApp, error) {
 		return conf, err
 	}
 
-	confPath := path.Join(rootPath, "configs")
+	confPath := flag.String("conf", path.Join(rootPath, "configs"), "местоположение конфигурационного файла приложения")
+	flag.Parse()
 
-	list, err := os.ReadDir(confPath)
+	fmt.Println("confPath = ", *confPath)
+
+	list, err := os.ReadDir(*confPath)
 	if err != nil {
 		return conf, err
 	}
 
-	confFileName, err := getFileName("config.yaml", confPath, list)
+	confFileName, err := getFileName("config.yaml", *confPath, list)
 	if err != nil {
 		return conf, err
 	}

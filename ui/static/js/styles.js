@@ -1,0 +1,1 @@
+require("!style-loader!css-loader!bootstrap.min.css");
