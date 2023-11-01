@@ -51,8 +51,6 @@ func NewConfig() (ConfigApp, error) {
 	confPath := flag.String("conf", path.Join(rootPath, "configs"), "местоположение конфигурационного файла приложения")
 	flag.Parse()
 
-	fmt.Println("confPath = ", *confPath)
-
 	list, err := os.ReadDir(*confPath)
 	if err != nil {
 		return conf, err

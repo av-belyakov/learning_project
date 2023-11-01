@@ -18,7 +18,7 @@ body {
 }
 
 header, nav, main, footer {
-    padding: 2px calc((100% - 300px) / 2) 0;
+    padding: 2px calc((100% - 800px) / 2) 0;
 }
 
 main {
@@ -31,7 +31,8 @@ main {
 h1 a {
     font-size: 36px;
     font-weight: bold;
-    background-image: url("/static/img/logo.png");
+    /*background-image: url("/static/img/logo.png");*/
+    background-image: url("../img/logo.png");
     background-repeat: no-repeat;
     background-position: 0px 0px;
     height: 36px;
@@ -76,6 +77,7 @@ textarea, input:not([type="submit"]) {
     font-family: "Ubuntu Mono", monospace;
 }
 
+
 header {
     background-image: -webkit-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
     background-image: -moz-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
@@ -89,6 +91,7 @@ header {
     padding-bottom: 27px;
     text-align: center;
 }
+
 
 header a {
     color: #34495E;

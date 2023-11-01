@@ -8,16 +8,19 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"time"
 
 	"learning_project/confighandler"
 	"learning_project/routes"
 )
 
 var (
-	err     error
-	appName string
-	confApp confighandler.ConfigApp
-	routers map[string]func(http.ResponseWriter, *http.Request)
+	err            error
+	appName        string
+	confApp        confighandler.ConfigApp
+	etagHeaders    []string
+	noCacheHeaders map[string]string
+	routers        map[string]func(http.ResponseWriter, *http.Request)
 )
 
 func getAppName(pf string, nl int) (string, error) {
@@ -84,15 +87,48 @@ func (nfs neuteredFileSystem) Open(path string) (http.File, error) {
 	return f, nil
 }
 
+func NoCache(h http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		// Удаляем любой ETag в заголовке который может быть установлен
+		for _, v := range etagHeaders {
+			if r.Header.Get(v) != "" {
+				r.Header.Del(v)
+			}
+		}
+
+		// Устанавливаем наш NoCache заголовок
+		for k, v := range noCacheHeaders {
+			w.Header().Set(k, v)
+		}
+
+		h.ServeHTTP(w, r)
+	}
+
+	return http.HandlerFunc(fn)
+}
+
 func init() {
 	appName = "Learning application version not defined"
-
 	if an, err := getAppName("README.md", 1); err == nil {
 		appName = an
 	}
 
-	rtd := routes.TemplateData{Version: getAppVersion(appName)}
+	noCacheHeaders = map[string]string{
+		"Expires":         time.Unix(0, 0).Format(time.RFC1123),
+		"Cache-Control":   "no-cache, private, max-age=0",
+		"Pragma":          "no-cache",
+		"X-Accel-Expires": "0",
+	}
+	etagHeaders = []string{
+		"ETag",
+		"If-Modified-Since",
+		"If-Match",
+		"If-None-Match",
+		"If-Range",
+		"If-Unmodified-Since",
+	}
 
+	rtd := routes.TemplateData{Version: getAppVersion(appName)}
 	routers = map[string]func(http.ResponseWriter, *http.Request){
 		"/":            rtd.RouteIndex,
 		"/news":        rtd.RouteNews,
@@ -118,9 +154,17 @@ func main() {
 	}
 
 	//для обработки статических файлов таких как css, js, images
-	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./ui/static")})
-	mux.Handle("/static", http.NotFoundHandler())
-	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+	fileServer := http.FileServer(neuteredFileSystem{http.Dir("./ui/dist")})
+
+	//mux.Handle("/static", http.NotFoundHandler())
+	mux.Handle("/dist", http.NotFoundHandler())
+
+	//для запрета кеширования загружаемых файлов
+	//mux.Handle("/static/", NoCache(http.StripPrefix("/static", fileServer)))
+	mux.Handle("/dist/", NoCache(http.StripPrefix("/dist", fileServer)))
+
+	//без запрета браузеру кешировать загружаемые файлы
+	//mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 
 	http.ListenAndServe(fmt.Sprintf("%s:%d", confApp.Host, confApp.Port), mux)
 }

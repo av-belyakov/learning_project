@@ -12,7 +12,8 @@ module.exports = {
         vendors: [
             "bootstrap",
         ],
-        index: "./index.js",
+        pagePhoto: "./page_photo/main.js",
+        //index: "./index.js",
         common: "./common.js",
         styles: "./styles.js",
     },
@@ -86,6 +87,17 @@ module.exports = {
                 test: /\.css$/i,
                 exclude: /node_modules/, // исключаем из обработки папку node_modules
                 use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
+                exclude: /\/node_modules\//,
+                use: [{
+                    loader: "file-loader",
+                    options: {
+                        name: "[path][name].[ext]",
+                        //publicPath: "dist/images",
+                    },
+                }],
             }
         ],
     }
