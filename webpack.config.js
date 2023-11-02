@@ -17,6 +17,8 @@ module.exports = {
     styles: './styles.js',
     mainBase: './main.js',
     pagePhoto: './page_photo/main.js',
+    pageReact: './page_react/main.js',
+    pageNearJavaScript: './page_near_javascript/main.js',
   },
 
   output: {
@@ -97,19 +99,36 @@ module.exports = {
           },
         },
       },
+
       {
         test: /\.css$/i,
         exclude: /node_modules/, // исключаем из обработки папку node_modules
         use: ['style-loader', 'css-loader'],
       },
+
       // правила для обработки изображений с расширениями png|jpg|jpeg|gif
       // относится к assetModuleFilename модулю
+      //
+      // поле type содержит одно из значений:
+      //  asset/resource, asset/inline, asset/source
+      // - asset/resource - работает так же, как и загрузчик file-loader.
+      // Модули, которые соответствуют правилу type: 'asset/resource' будут
+      // выводится в указанный с помощью assetModuleFilename каталог.
+      // - asset/inline работает как загрузчик url-loader. Модули,
+      // соответствующие правилу type: 'asset/inline', встраиваются
+      // в код бандла как Data URL. asset/source похож на работу
+      // загрузчика raw-loader. Модули, соответствующие правилу
+      // type: 'asset/source', встраиваются без преобразований (как есть).
+      // - asset объединяет asset/resource и asset/inline. Он работает
+      // следующим образом: если размер модуля больше 8 КБ, то он работает
+      // как asset/resource, в противном случае - как asset/inline. Размер
+      // 8 КБ задан по умолчанию, но его можно изменить с помощью свойства
+      // parser.dataUrlCondition.maxSize.
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
       // правила для обработки изображений с расширением svg
-      // относится к assetModuleFilename модулю
       {
         test: /\.svg$/,
         type: 'asset/resource',
@@ -117,16 +136,6 @@ module.exports = {
           filename: path.join('icons', '[path][name].[ext]'),
         },
       },
-      /* {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?.*)?$/,
-        exclude: /\/node_modules\//,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[path][name].[ext]',
-          },
-        }],
-      },*/
     ],
   },
 };

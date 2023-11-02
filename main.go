@@ -130,11 +130,13 @@ func init() {
 
 	rtd := routes.TemplateData{Version: getAppVersion(appName)}
 	routers = map[string]func(http.ResponseWriter, *http.Request){
-		"/":            rtd.RouteIndex,
-		"/news":        rtd.RouteNews,
-		"/music":       rtd.RouteMusic,
-		"/photo":       rtd.RoutePhoto,
-		"/usefulnotes": rtd.RouteUsefulNotes,
+		"/":                         rtd.RouteIndex,
+		"/news":                     rtd.RouteNews,
+		"/music":                    rtd.RouteMusic,
+		"/photo":                    rtd.RoutePhoto,
+		"/useful_notes":             rtd.RouteUsefulNotes,
+		"/examples_react":           rtd.RouteExamplesReact,
+		"/examples_neat_javascript": rtd.RouteExamplesNeatJavaScript,
 	}
 
 	//инициализируем модуль чтения конфигурационного файла
