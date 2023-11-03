@@ -1,3 +1,7 @@
+'use strict';
+
+import {createButton} from './createrUserElement.js';
+
 // просто тест пока что
 (function() {
   const listTmp1 = [
@@ -30,8 +34,19 @@
     return newList;
   };
 
+  const pressButton = function() {
+    const elementsP = document.getElementsByTagName('p');
+
+    for (const elem of elementsP) {
+      elem.innerHTML = 'вы нажали кнопку';
+      elem.setAttribute('style', 'color: red');
+    }
+  };
+
   const divElem1 = document.getElementById('elem_1');
 
   divElem1.append(createElementP('Просто пояснение к данному списку'));
   divElem1.append(createElementUl(listTmp1));
+
+  divElem1.append(createButton('нажать', pressButton));
 })();
