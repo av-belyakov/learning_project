@@ -1,4 +1,1 @@
-require('bootstrap');
-
-
-// require('./manifest.webmanifest');
+require('bootstrap')

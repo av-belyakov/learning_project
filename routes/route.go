@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"html/template"
+	"html/template" //простой шаблонизатор для Go
 	"log"
 	"net/http"
 )

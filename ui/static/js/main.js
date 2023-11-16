@@ -1,10 +1,10 @@
-(function() {
-  const navLinks = document.querySelectorAll('nav a');
+(function () {
+  const navLinks = document.querySelectorAll('nav a')
   for (let i = 0; i < navLinks.length; i++) {
-    const link = navLinks[i];
+    const link = navLinks[i]
     if (link.getAttribute('href') == window.location.pathname) {
-      link.classList.add('live');
+      link.classList.add('live')
       break;
     }
   }
-})();
+})()
