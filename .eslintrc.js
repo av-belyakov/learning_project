@@ -4,9 +4,11 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'standard',
+    'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:react-hooks/recommended'
+    'plugin:import/recommended',
+    'plugin:react-hooks/recommended',
+    'prettier'
   ],
   overrides: [
     {
@@ -14,7 +16,7 @@ module.exports = {
         node: true
       },
       files: [
-        '.eslintrc.{js,cjs}'
+        '.eslintrc.{js,jsx,cjs}'
       ],
       parserOptions: {
         sourceType: 'script'

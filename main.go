@@ -136,6 +136,7 @@ func init() {
 		"/photo":                    rtd.RoutePhoto,
 		"/useful_notes":             rtd.RouteUsefulNotes,
 		"/examples_react":           rtd.RouteExamplesReact,
+		"/examples_react/api":       rtd.RouteExamplesReactApi,
 		"/examples_neat_javascript": rtd.RouteExamplesNeatJavaScript,
 	}
 
